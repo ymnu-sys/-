@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob:; style-src 'self' 'unsafe-inline'; script-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <title>我的專區｜高科大智慧失物招領平台（課堂展示原型）</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+  <script type="module" src="js/pages/my.js"></script>
+</head>
+<body>
+  <main id="main">
+    <section class="page-head">
+      <div class="container">
+        <div class="breadcrumb"><a href="index.html">首頁</a> / 我的專區</div>
+        <h1>👤 我的專區</h1>
+        <p>追蹤認領申請進度、查看站內通知與管理你刊登的物品。</p>
+      </div>
+    </section>
+    <section class="container section-tight">
+      <div class="tabs" role="tablist">
+        <button class="tab" role="tab" data-tab="claims" id="tab-claims">📨 我的認領申請</button>
+        <button class="tab" role="tab" data-tab="notices" id="tab-notices">🔔 通知中心</button>
+        <button class="tab" role="tab" data-tab="posts" id="tab-posts">📝 我的刊登</button>
+      </div>
+      <div id="tab-panel" role="tabpanel" aria-live="polite"></div>
+    </section>
+  </main>
+</body>
+</html>

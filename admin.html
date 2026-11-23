@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob:; style-src 'self' 'unsafe-inline'; script-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <title>審核後台｜高科大智慧失物招領平台（課堂展示原型）</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+  <script type="module" src="js/pages/admin.js"></script>
+</head>
+<body>
+  <main id="main">
+    <section class="page-head">
+      <div class="container">
+        <div class="breadcrumb"><a href="index.html">首頁</a> / 審核後台</div>
+        <h1>🛡️ 管理員審核後台</h1>
+        <p>比對認領描述與非公開驗證特徵，人工決定核准、拒絕或要求補充資料。</p>
+      </div>
+    </section>
+    <section class="container section-tight">
+      <div class="alert alert-warning">
+        <span class="alert-icon">⚠️</span>
+        <div>課堂展示原型：管理員權限只在前端檢查，不具正式權限驗證。正式系統必須在伺服器端驗證管理員身分，並記錄存取非公開資料的稽核紀錄。</div>
+      </div>
+      <br>
+      <div class="tabs" role="tablist">
+        <button class="tab" role="tab" data-tab="claims">📨 認領審核</button>
+        <button class="tab" role="tab" data-tab="items">📦 物品管理</button>
+      </div>
+      <div id="admin-panel" aria-live="polite"></div>
+    </section>
+  </main>
+</body>
+</html>

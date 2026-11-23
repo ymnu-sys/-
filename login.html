@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob:; style-src 'self' 'unsafe-inline'; script-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <title>登入｜高科大智慧失物招領平台（課堂展示原型）</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+  <script type="module" src="js/pages/login.js"></script>
+</head>
+<body>
+  <main id="main">
+    <section class="page-head">
+      <div class="container">
+        <h1>🔐 示範登入</h1>
+        <p>刊登與認領需要登入，瀏覽與搜尋不需要。</p>
+      </div>
+    </section>
+    <section class="container section-tight">
+      <div class="alert alert-warning" style="max-width:920px;margin:0 auto 20px">
+        <span class="alert-icon">⚠️</span>
+        <div><strong>非正式身分驗證，僅供課堂展示。</strong>帳號密碼直接寫在前端程式中，登入狀態存在 localStorage，任何人都能修改。正式上線必須改用伺服器端驗證（例如學校單一登入）。</div>
+      </div>
+      <div class="auth-wrap">
+        <div class="panel" id="login-panel">
+          <h2>登入帳號</h2>
+          <form id="login-form" novalidate>
+            <div class="stack">
+              <div class="field" data-field="username">
+                <label for="username">帳號<span class="req">*</span></label>
+                <input id="username" name="username" type="text" autocomplete="username" required>
+                <p class="field-error" id="err-username" aria-live="polite"></p>
+              </div>
+              <div class="field" data-field="password">
+                <label for="password">密碼<span class="req">*</span></label>
+                <input id="password" name="password" type="password" autocomplete="current-password" required>
+                <p class="field-error" id="err-password" aria-live="polite"></p>
+              </div>
+              <button class="btn btn-primary btn-block btn-lg" type="submit">登入</button>
+            </div>
+          </form>
+        </div>
+        <div class="panel">
+          <h2>示範帳號</h2>
+          <p class="muted small">點「帶入」自動填入帳號密碼。全部為虛構帳號。</p>
+          <div id="demo-accounts"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

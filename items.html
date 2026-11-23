@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob:; style-src 'self' 'unsafe-inline'; script-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <title>瀏覽失物｜高科大智慧失物招領平台（課堂展示原型）</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+  <script type="module" src="js/pages/items.js"></script>
+</head>
+<body>
+  <main id="main">
+    <section class="page-head">
+      <div class="container">
+        <div class="breadcrumb"><a href="index.html">首頁</a> / 瀏覽失物</div>
+        <h1>📋 瀏覽與搜尋拾獲物品</h1>
+        <p>搜尋只會比對公開資訊（名稱、類別、顏色、校區、地點、公開描述）。</p>
+      </div>
+    </section>
+
+    <section class="container section-tight">
+      <div class="panel">
+        <form id="filter-form" class="filter-bar" role="search">
+          <div class="field">
+            <label for="f-q">關鍵字</label>
+            <input id="f-q" name="q" type="search" placeholder="物品名稱、顏色、地點…" autocomplete="off">
+          </div>
+          <div class="field">
+            <label for="f-category">物品類別</label>
+            <select id="f-category" name="category"><option value="">全部類別</option></select>
+          </div>
+          <div class="field">
+            <label for="f-campus">拾獲校區</label>
+            <select id="f-campus" name="campus"><option value="">全部校區</option></select>
+          </div>
+          <div class="btn-row">
+            <button class="btn btn-primary" type="submit">搜尋</button>
+            <button class="btn btn-outline" type="button" id="f-clear">清除</button>
+          </div>
+        </form>
+        <div class="chip-row" id="campus-chips" aria-label="快速校區篩選"></div>
+        <div class="chip-row" id="cat-chips" aria-label="快速類別篩選"></div>
+      </div>
+
+      <div class="result-info">
+        <span id="result-count" aria-live="polite"></span>
+        <a class="btn btn-sm btn-accent" href="post.html">➕ 刊登拾獲物品</a>
+      </div>
+      <div class="item-grid" id="result-grid"></div>
+    </section>
+  </main>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "name": "nkust-lost-and-found",
+  "version": "1.0.0",
+  "description": "高科大智慧失物招領平台（系統分析與設計課程專題・課堂展示原型）",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test tests/*.test.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

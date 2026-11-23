@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob:; style-src 'self' 'unsafe-inline'; script-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <title>刊登拾獲物品｜高科大智慧失物招領平台（課堂展示原型）</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+  <script type="module" src="js/pages/post.js"></script>
+</head>
+<body>
+  <main id="main">
+    <section class="page-head">
+      <div class="container">
+        <div class="breadcrumb"><a href="index.html">首頁</a> / 刊登拾獲物品</div>
+        <h1>➕ 刊登拾獲物品</h1>
+        <p>謝謝你的熱心！請分別填寫「公開資訊」與「非公開驗證資訊」。</p>
+      </div>
+    </section>
+
+    <section class="container section-tight">
+      <form id="post-form" novalidate>
+        <!-- 公開資訊 -->
+        <div class="form-section public">
+          <div class="form-section-head">
+            <h2>🌐 公開資訊</h2>
+            <span class="vis-tag public">所有人都看得到</span>
+          </div>
+          <p class="hint">公開資訊只需大致描述，<strong>不要寫出內部物品、刻字、吊飾、品牌型號、序號、證件號碼或聯絡方式</strong>，以免冒領者照抄。</p>
+          <br>
+          <div class="form-grid">
+            <div class="field" data-field="name">
+              <label for="name">物品名稱<span class="req">*</span></label>
+              <input id="name" name="name" type="text" maxlength="20" placeholder="例如：黑色短夾、藍牙耳機盒" required>
+              <p class="field-error" id="err-name" aria-live="polite"></p>
+            </div>
+            <div class="field" data-field="category">
+              <label for="category">物品類別<span class="req">*</span></label>
+              <select id="category" name="category" required><option value="">請選擇</option></select>
+              <p class="field-error" id="err-category" aria-live="polite"></p>
+            </div>
+            <div class="field" data-field="color">
+              <label for="color">大致顏色<span class="req">*</span></label>
+              <select id="color" name="color" required><option value="">請選擇</option></select>
+              <p class="field-error" id="err-color" aria-live="polite"></p>
+            </div>
+            <div class="field" data-field="foundDate">
+              <label for="foundDate">拾獲日期<span class="req">*</span></label>
+              <input id="foundDate" name="foundDate" type="date" required>
+              <p class="field-error" id="err-foundDate" aria-live="polite"></p>
+            </div>
+            <div class="field" data-field="campus">
+              <label for="campus">拾獲校區<span class="req">*</span></label>
+              <select id="campus" name="campus" required><option value="">請選擇</option></select>
+              <p class="field-error" id="err-campus" aria-live="polite"></p>
+            </div>
+            <div class="field" data-field="location">
+              <label for="location">大致拾獲地點<span class="req">*</span></label>
+              <input id="location" name="location" type="text" maxlength="30" placeholder="例如：圖書館附近、學生餐廳" required>
+              <p class="field-error" id="err-location" aria-live="polite"></p>
+            </div>
+            <div class="field full" data-field="publicDesc">
+              <label for="publicDesc">簡短公開描述<span class="req">*</span></label>
+              <textarea id="publicDesc" name="publicDesc" rows="2" placeholder="例如：黑色短夾，於圖書館附近拾獲。" required></textarea>
+              <p class="counter" id="desc-counter">0 / 50</p>
+              <p class="field-error" id="err-publicDesc" aria-live="polite"></p>
+            </div>
+            <div class="field full" data-field="photo">
+              <span class="label">物品外觀照片<span class="opt">（選填）</span></span>
+              <div class="alert alert-warning hidden" id="sensitive-warning">
+                <span class="alert-icon">⚠️</span>
+                <div>
+                  <p><strong>此類別可能含有個人資料，建議不要上傳照片。</strong></p>
+                  <p>證件、錢包、手機等物品的照片容易拍到姓名、證件號碼、卡號或桌布。平台會改用類別圖示顯示。</p>
+                  <label class="check"><input type="checkbox" id="photoConfirmed"> 我確認照片只拍外觀，不含任何敏感資訊或可辨識的特殊標記，仍要上傳。</label>
+                </div>
+              </div>
+              <div class="photo-box" id="photo-box">
+                <div class="photo-preview" id="photo-preview" aria-live="polite">📷</div>
+                <div class="stack">
+                  <input id="photo" type="file" accept="image/jpeg,image/png,image/webp,image/gif" aria-describedby="photo-hint">
+                  <p class="hint" id="photo-hint">只拍物品整體外觀，請勿拍到證件號碼、卡片內容、刻字、吊飾等驗證細節。圖片會在瀏覽器自動壓縮（最長邊 800px）並移除拍攝位置等資訊。</p>
+                  <button type="button" class="btn btn-sm btn-outline hidden" id="photo-remove">移除照片</button>
+                </div>
+              </div>
+              <p class="field-error" id="err-photo" aria-live="polite"></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 非公開驗證資訊 -->
+        <div class="form-section private">
+          <div class="form-section-head">
+            <h2>🔒 非公開驗證資訊</h2>
+            <span class="vis-tag private">僅管理員可見</span>
+          </div>
+          <p class="hint">這些資訊<strong>不會出現在任何公開頁面或搜尋結果</strong>，只用來讓管理員比對認領者的描述是否正確。請至少填寫一項。不需要填寫證件號碼或卡號等完整個資。</p>
+          <br>
+          <div class="form-grid" data-field="secret">
+            <div class="field full">
+              <label for="s-marks">特殊標記<span class="opt">（如刻字、貼紙、刮痕、吊飾）</span></label>
+              <textarea id="s-marks" name="marks" rows="2" maxlength="200" placeholder="例如：拉鍊頭綁有紅色細線"></textarea>
+            </div>
+            <div class="field full">
+              <label for="s-contents">內部物品或特殊配件</label>
+              <textarea id="s-contents" name="contents" rows="2" maxlength="200" placeholder="例如：內有集點卡一張、發票一張（不要寫卡號或證件號碼）"></textarea>
+            </div>
+            <div class="field full">
+              <label for="s-other">其他可確認所有權的特徵</label>
+              <textarea id="s-other" name="other" rows="2" maxlength="200" placeholder="例如：品牌、型號、序號末兩碼、磨損位置"></textarea>
+            </div>
+            <p class="field-error full" id="err-secret" aria-live="polite"></p>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn btn-primary btn-lg" type="submit">送出刊登</button>
+          <a class="btn btn-outline btn-lg" href="items.html">取消</a>
+        </div>
+      </form>
+    </section>
+  </main>
+</body>
+</html>

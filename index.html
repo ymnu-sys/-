@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob:; style-src 'self' 'unsafe-inline'; script-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <title>首頁｜高科大智慧失物招領平台（課堂展示原型）</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+  <script type="module" src="js/pages/home.js"></script>
+</head>
+<body>
+  <main id="main">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <span class="eyebrow">🎓 高科大學生的校園失物招領</span>
+          <h1>撿到東西、掉了東西，<br>都從這裡開始。</h1>
+          <p class="lead">集中刊登各校區拾獲物品，失主可以快速搜尋與提出認領申請。物品的關鍵特徵不公開，由管理員比對審核並現場核對，降低冒領風險。</p>
+          <form class="hero-search" action="items.html" method="get" role="search">
+            <label for="hero-q" class="sr-only">搜尋拾獲物品</label>
+            <input id="hero-q" name="q" type="search" placeholder="輸入物品名稱、地點或關鍵字，例如：短夾、圖書館" autocomplete="off">
+            <button class="btn btn-primary" type="submit">🔍 搜尋</button>
+          </form>
+          <div class="btn-row">
+            <a class="btn btn-light btn-lg" href="items.html">📋 瀏覽失物</a>
+            <a class="btn btn-accent btn-lg" href="post.html">➕ 刊登拾獲物品</a>
+          </div>
+        </div>
+        <aside class="hero-card" aria-label="平台概況">
+          <h3>📊 目前平台概況</h3>
+          <div class="stat-row">
+            <div class="stat"><b id="stat-available">0</b><span>待認領</span></div>
+            <div class="stat"><b id="stat-processing">0</b><span>認領處理中</span></div>
+            <div class="stat"><b id="stat-returned">0</b><span>已領回</span></div>
+          </div>
+          <ul>
+            <li>物品內部與特殊標記不公開</li>
+            <li>所有認領都由管理員人工審核</li>
+            <li>審核通過後仍需現場核對才算領回</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section class="container overlap" aria-labelledby="cat-title">
+      <h2 id="cat-title" class="sr-only">物品分類</h2>
+      <div class="cat-grid" id="cat-grid"></div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>🆕 最新拾獲物品</h2>
+            <p>只顯示公開資訊；認領時請自行描述物品特徵。</p>
+          </div>
+          <a class="btn btn-outline" href="items.html">查看全部 →</a>
+        </div>
+        <div class="item-grid" id="latest-grid"></div>
+      </div>
+    </section>
+
+    <section class="section-tight">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>🧭 認領流程</h2>
+            <p>送出申請不等於認領成功，必須經過管理員審核與現場核對。</p>
+          </div>
+        </div>
+        <div class="steps">
+          <div class="step"><div class="step-icon">📝</div><h3>拾獲者刊登</h3><p>填寫公開資訊，並另外登記只有管理員看得到的驗證特徵。</p></div>
+          <div class="step"><div class="step-icon">🙋</div><h3>失主提出認領</h3><p>找到物品後點「我要認領」，自行描述只有失主才知道的特徵。</p></div>
+          <div class="step"><div class="step-icon">🔎</div><h3>管理員比對審核</h3><p>管理員比對描述與登記特徵，核准、拒絕或要求補充資料。</p></div>
+          <div class="step"><div class="step-icon">🤝</div><h3>現場核對領回</h3><p>審核通過後到服務台核對身分與物品，確認交還才完成領取。</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-tight">
+      <div class="container">
+        <div class="alert alert-secret">
+          <span class="alert-icon">🔒</span>
+          <div>
+            <p><strong>為什麼物品資訊看起來很「模糊」？</strong></p>
+            <p>為了防止冒領，平台不公開物品內部內容、特殊刻字、吊飾、序號或任何個人資料。真正的失主自然知道這些細節，請在認領申請中自行描述。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
