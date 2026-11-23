@@ -1,6 +1,7 @@
 /* 零套件靜態檔案伺服器（ES Modules 不能用 file:// 開啟，所以需要本機伺服器）
  * 啟動：npm start  →  http://localhost:3000
- * 讓手機在同一個區網測試：PowerShell 執行  $env:HOST="0.0.0.0"; npm start */
+ * 部署（例如 Render）會透過環境變數 PORT 指定連接埠；伺服器監聽 0.0.0.0 才能被外部連線。
+ * 手機在同一個區網測試：用 http://電腦IP:3000 開啟。 */
 import http from "node:http";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
@@ -8,7 +9,7 @@ import { fileURLToPath } from "node:url";
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const PORT = Number(process.env.PORT) || 3000;
-const HOST = process.env.HOST || "127.0.0.1";
+const HOST = "0.0.0.0";
 
 const MIME = {
   ".html": "text/html; charset=utf-8",
@@ -56,7 +57,7 @@ const server = http.createServer(async (req, res) => {
 });
 
 server.listen(PORT, HOST, () => {
-  const shown = HOST === "0.0.0.0" ? "localhost" : HOST;
-  console.log(`高科大智慧失物招領平台（課堂展示原型）已啟動：http://${shown}:${PORT}`);
+  console.log(`Server listening on ${HOST}:${PORT}`);
+  console.log(`高科大智慧失物招領平台（課堂展示原型）已啟動：http://localhost:${PORT}`);
   console.log("按 Ctrl + C 停止伺服器");
 });
