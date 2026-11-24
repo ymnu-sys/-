@@ -14,6 +14,7 @@ function user(username) {
 export const studentA = user("student_a"); // 種子物品的拾獲者
 export const studentB = user("student_b");
 export const admin = user("admin");
+export const visitor = user("visitor"); // 校外人士
 
 export const validClaim = {
   applicantName: "測試學生 B",

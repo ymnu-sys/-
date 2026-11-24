@@ -1,6 +1,7 @@
 /* 認領申請：不提供選擇題、不顯示非公開驗證資訊、不要求上傳證件 */
 import { mountLayout, guardPage, escapeHtml, itemVisual, emptyState, showFieldErrors, toast, params } from "../ui.js";
 import { getPublicItem, categoryOf } from "../items.js";
+import { isExternal } from "../auth.js";
 import { createClaim, checkClaimEligibility, validateClaimForm, CLAIM_LIMITS } from "../claims.js";
 
 mountLayout("items");
@@ -40,6 +41,7 @@ function itemSummary(item) {
 }
 
 function renderForm(item) {
+  const external = isExternal(user);
   root.innerHTML = `
     <div class="detail-grid">
       <form id="claim-form" class="panel" novalidate>
@@ -53,7 +55,7 @@ function renderForm(item) {
             <p class="field-error" id="err-applicantName"></p>
           </div>
           <div class="field" data-field="studentId">
-            <label for="studentId">學號<span class="req">*</span><span class="opt">（模擬資料）</span></label>
+            <label for="studentId">學號${external ? '<span class="opt">（校外人士免填）</span>' : '<span class="req">*</span><span class="opt">（模擬資料）</span>'}</label>
             <input id="studentId" type="text" maxlength="12" value="${escapeHtml(user.studentId || "")}" required>
             <p class="field-error" id="err-studentId"></p>
           </div>
@@ -80,7 +82,7 @@ function renderForm(item) {
             <p class="field-error" id="err-extraInfo"></p>
           </div>
           <div class="field full" data-field="agreeOnsite">
-            <label class="check"><input type="checkbox" id="agreeOnsite"> 我了解送出申請不代表認領成功；審核通過後，需攜帶學生證到現場核對身分與物品才能領回。<span class="req">*</span></label>
+            <label class="check"><input type="checkbox" id="agreeOnsite"> 我了解送出申請不代表認領成功；審核通過後，需攜帶學生證（校外人士請帶附照片的身分證件）到現場核對身分與物品才能領回。<span class="req">*</span></label>
             <p class="field-error" id="err-agreeOnsite"></p>
           </div>
         </div>
@@ -113,7 +115,7 @@ function renderForm(item) {
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     const data = collect();
-    const check = validateClaimForm(data);
+    const check = validateClaimForm(data, { requireStudentId: !external });
     showFieldErrors(form, check.errors);
     if (!check.ok) {
       toast("必填欄位尚未完成，無法送出", "error");

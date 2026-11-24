@@ -1,6 +1,6 @@
 /* 共用畫面元件：原型橫幅、導覽列、頁尾、Toast、物品卡片、權限守門 */
 import { initIfEmpty, resetDemoData } from "./storage.js";
-import { currentUser, logout, requireLogin, requireRole, ROLE_LABEL } from "./auth.js";
+import { currentUser, logout, requireLogin, requireRole, userTypeLabel } from "./auth.js";
 import { unreadCount } from "./notifications.js";
 import { categoryOf, categoryName, PUBLIC_STATUS } from "./items.js";
 import { CLAIM_STATUS_LABEL } from "./data.js";
@@ -29,7 +29,7 @@ export function mountLayout(active = "") {
 
   const userBox = user
     ? `<div class="nav-user">
-         <span>👤 ${escapeHtml(user.name)} <span class="role-tag ${user.role}">${ROLE_LABEL[user.role]}</span></span>
+         <span>👤 ${escapeHtml(user.name)} <span class="role-tag ${user.role}">${userTypeLabel(user)}</span></span>
          <button type="button" class="btn btn-sm btn-ghost" id="logout-btn">登出</button>
        </div>`
     : `<div class="nav-user"><a class="btn btn-sm btn-light" href="login.html?return=${encodeURIComponent(here)}">登入</a></div>`;

@@ -104,7 +104,7 @@ function claimDetail(c) {
       <div class="action-box">
         <h3>現場領取確認</h3>
         <div class="alert alert-info"><span class="alert-icon">🤝</span><div>審核通過 ≠ 已完成領取。${escapeHtml(PICKUP_INFO)}</div></div>
-        <label class="check"><input type="checkbox" id="onsite-check"> 我已在現場核對申請人的學生證（身分）與物品特徵，並將物品交還。</label>
+        <label class="check"><input type="checkbox" id="onsite-check"> 我已在現場核對申請人的學生證或附照片的身分證件（身分）與物品特徵，並將物品交還。</label>
         <div class="btn-row"><button class="btn btn-primary" id="btn-complete" data-action="complete" disabled>🎉 確認完成領取</button></div>
         <div class="field">
           <label for="admin-note">現場核對不符時的說明</label>
@@ -135,7 +135,7 @@ function claimDetail(c) {
         <section class="compare-col claimant">
           <h3>📝 申請人描述</h3>
           ${kv("申請人姓名", c.applicantName)}
-          ${kv("學號（模擬）", c.studentId)}
+          ${kv("學號（模擬；校外人士免填）", c.studentId)}
           ${kv("聯絡方式", c.contact)}
           ${kv("物品特殊特徵描述", c.description)}
           ${kv("其他證明資訊", c.extraInfo)}

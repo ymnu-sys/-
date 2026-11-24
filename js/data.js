@@ -37,13 +37,14 @@ export const CLAIM_STATUS_LABEL = Object.freeze({
 
 /** 示範帳號（虛構，僅供課堂展示；正式系統不可把密碼寫在前端） */
 export const DEMO_USERS = Object.freeze([
-  { id: "u_student_a", username: "student_a", password: "demo1234", role: "student", name: "測試學生 A", studentId: "DEMO0001" },
-  { id: "u_student_b", username: "student_b", password: "demo1234", role: "student", name: "測試學生 B", studentId: "DEMO0002" },
-  { id: "u_admin", username: "admin", password: "admin1234", role: "admin", name: "示範管理員", studentId: "" }
+  { id: "u_student_a", username: "student_a", password: "demo1234", role: "student", affiliation: "nkust", name: "測試學生 A", studentId: "DEMO0001" },
+  { id: "u_student_b", username: "student_b", password: "demo1234", role: "student", affiliation: "nkust", name: "測試學生 B", studentId: "DEMO0002" },
+  { id: "u_external", username: "visitor", password: "demo1234", role: "student", affiliation: "external", name: "校外人士（示範）", studentId: "" },
+  { id: "u_admin", username: "admin", password: "admin1234", role: "admin", affiliation: "staff", name: "示範管理員", studentId: "" }
 ]);
 
 export const PICKUP_INFO =
-  "請於辦公時間（週一至週五 09:00–17:00）攜帶學生證，至學務處服務台（模擬地點）由管理員現場核對身分與物品後領取。";
+  "請於辦公時間（週一至週五 09:00–17:00）攜帶學生證或附照片的身分證件，至學務處服務台（模擬地點）由管理員現場核對身分與物品後領取。";
 
 export function daysAgo(n) {
   const d = new Date();

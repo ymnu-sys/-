@@ -40,3 +40,13 @@ test("登入後導回網址只接受站內頁面", () => {
   assert.equal(safeReturnUrl("//evil.example"), null);
   assert.equal(safeReturnUrl("javascript:alert(1)"), null);
 });
+
+test("校外人士示範帳號可登入，為學生權限（不是管理員）", async () => {
+  const { userTypeLabel, isExternal } = await import("../js/auth.js");
+  const r = login("visitor", "demo1234");
+  assert.equal(r.ok, true);
+  assert.equal(isExternal(r.user), true);
+  assert.equal(userTypeLabel(r.user), "校外人士");
+  assert.equal(requireRole("admin").ok, false);
+  assert.equal(requireRole("student").ok, true);
+});

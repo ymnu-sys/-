@@ -140,3 +140,30 @@ test("只有管理員可以列出所有申請", () => {
   assert.throws(() => listAllClaims(studentB), ClaimError);
   assert.ok(listAllClaims(admin).length >= 2);
 });
+
+test("校外人士：學號免填也能認領，但仍然只會進入待審核", async () => {
+  const { visitor } = await import("./helpers.js");
+  assert.equal(visitor.affiliation, "external");
+  const noId = { ...validClaim, applicantName: "校外人士（示範）", studentId: "" };
+  assert.equal(validateClaimForm(noId).errors.studentId !== undefined, true); // 預設仍要求學號
+  assert.equal(validateClaimForm(noId, { requireStudentId: false }).ok, true);
+  const r = createClaim("i1", noId, visitor);
+  assert.equal(r.ok, true, r.error);
+  assert.equal(r.claim.status, S.PENDING);
+  assert.equal(r.claim.studentId, "");
+});
+
+test("校外人士有填學號時仍檢查格式；高科大學生仍必填學號", async () => {
+  const { visitor } = await import("./helpers.js");
+  assert.ok(validateClaimForm({ ...validClaim, studentId: "!!" }, { requireStudentId: false }).errors.studentId);
+  const r = createClaim("i1", { ...validClaim, studentId: "" }, studentB);
+  assert.ok(r.errors.studentId);
+  assert.ok(visitor);
+});
+
+test("校外人士沒有管理員權限", async () => {
+  const { visitor } = await import("./helpers.js");
+  const c = newClaim();
+  assert.throws(() => transition(c.id, "approve", visitor), ClaimError);
+  assert.throws(() => listAllClaims(visitor), ClaimError);
+});

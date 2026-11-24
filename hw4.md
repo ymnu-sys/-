@@ -17,7 +17,8 @@ classDiagram
         +String name
     }
     class Student {
-        +String studentId
+        +String studentId 校外人士可為空
+        +String affiliation nkust或external
     }
     class Admin
     User <|-- Student
@@ -72,7 +73,8 @@ classDiagram
         +String itemId
         +String claimantId
         +String applicantName
-        +String studentId
+        +String studentId 校外人士可為空
+        +String affiliation nkust或external
         +String contact
         +String description
         +String extraInfo
@@ -187,7 +189,7 @@ sequenceDiagram
 
 ```mermaid
 sequenceDiagram
-    actor F as 拾獲者（學生）
+    actor F as 拾獲者（學生或校外人士）
     participant P as post.html<br/>pages/post.js
     participant A as auth.js
     participant IMG as image.js
@@ -228,7 +230,7 @@ sequenceDiagram
 
 ```mermaid
 sequenceDiagram
-    actor C as 認領者（學生）
+    actor C as 認領者（學生或校外人士）
     participant CP as claim.html / my.html
     participant CL as claims.js
     participant N as notifications.js
@@ -269,7 +271,7 @@ sequenceDiagram
         AD->>AP: 核准
         AP->>CL: transition(id, "approve", admin)
         CL->>N: createNotification(APPROVED，請至現場)
-        C->>AD: 攜帶學生證到服務台
+        C->>AD: 攜帶學生證或身分證件到服務台
         AD->>AD: 現場核對身分與物品
         AD->>AP: 勾選現場核對，確認完成領取
         AP->>CL: transition(id, "complete", admin, {onsiteVerified: true})
@@ -353,7 +355,7 @@ flowchart TD
         C0([開始]) --> C1[在物品詳情點我要認領]
         C3[自行描述特徵並送出]
         C6[補充資料]
-        C8[攜帶學生證到現場]
+        C8[攜帶學生證或身分證件到現場]
         C9([結束])
     end
     subgraph 系統

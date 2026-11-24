@@ -1,5 +1,5 @@
 import { mountLayout, escapeHtml, showFieldErrors, setFlash, toast, params } from "../ui.js";
-import { login, ROLE_LABEL } from "../auth.js";
+import { login, userTypeLabel } from "../auth.js";
 import { DEMO_USERS } from "../data.js";
 import { safeReturnUrl } from "../utils.js";
 
@@ -9,20 +9,21 @@ const returnUrl = safeReturnUrl(params().get("return"));
 if (user) {
   document.getElementById("login-panel").innerHTML = `
     <h2>你已登入</h2>
-    <p>目前身分：<strong>${escapeHtml(user.name)}</strong>（${ROLE_LABEL[user.role]}）。如需切換帳號，請先按右上角「登出」。</p>
+    <p>目前身分：<strong>${escapeHtml(user.name)}</strong>（${userTypeLabel(user)}）。如需切換帳號，請先按右上角「登出」。</p>
     <a class="btn btn-primary" href="${escapeHtml(returnUrl || "index.html")}">繼續</a>`;
 }
 
 const DESC = {
   student_a: "種子物品的拾獲者，可示範刊登與「不能認領自己的物品」。",
   student_b: "認領者，可示範提出認領、補充資料、接收通知。",
+  visitor: "非高科大師生，可示範在校內撿到物品後刊登，或認領校內遺失的物品（學號免填）。",
   admin: "可查看非公開驗證特徵、審核認領、完成領取、下架物品。"
 };
 
 document.getElementById("demo-accounts").innerHTML = DEMO_USERS.map((u) => `
   <div class="demo-account">
     <div>
-      <strong>${escapeHtml(u.name)}</strong> <span class="chip">${ROLE_LABEL[u.role]}</span><br>
+      <strong>${escapeHtml(u.name)}</strong> <span class="chip">${userTypeLabel(u)}</span><br>
       <span class="small">帳號 <code>${escapeHtml(u.username)}</code>　密碼 <code>${escapeHtml(u.password)}</code></span>
       <div class="hint">${DESC[u.username] || ""}</div>
     </div>

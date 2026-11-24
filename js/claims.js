@@ -97,7 +97,8 @@ export function transition(claimId, action, actor, payload = {}) {
 }
 
 /* ---------- 認領者 ---------- */
-export function validateClaimForm(data = {}) {
+/** requireStudentId：高科大學生必填；校外人士沒有學號，可以不填（有填就檢查格式） */
+export function validateClaimForm(data = {}, { requireStudentId = true } = {}) {
   const v = {
     applicantName: clean(data.applicantName),
     studentId: clean(data.studentId).toUpperCase(),
@@ -110,8 +111,9 @@ export function validateClaimForm(data = {}) {
   if (!v.applicantName) errors.applicantName = "請填寫申請人姓名";
   else if (v.applicantName.length > CLAIM_LIMITS.name) errors.applicantName = `姓名最多 ${CLAIM_LIMITS.name} 字`;
 
-  if (!v.studentId) errors.studentId = "請填寫學號（課堂原型請使用模擬學號）";
-  else if (!/^[A-Z0-9]{4,12}$/.test(v.studentId)) errors.studentId = "學號格式為 4–12 個英文字母或數字";
+  if (!v.studentId) {
+    if (requireStudentId) errors.studentId = "請填寫學號（課堂原型請使用模擬學號）";
+  } else if (!/^[A-Z0-9]{4,12}$/.test(v.studentId)) errors.studentId = "學號格式為 4–12 個英文字母或數字";
 
   if (!v.contact) errors.contact = "請填寫聯絡方式";
   else if (v.contact.length > CLAIM_LIMITS.contact) errors.contact = `聯絡方式最多 ${CLAIM_LIMITS.contact} 字`;
@@ -148,7 +150,7 @@ export function checkClaimEligibility(itemId, user) {
 export function createClaim(itemId, data, user) {
   const elig = checkClaimEligibility(itemId, user);
   if (!elig.ok) return { ok: false, error: elig.error, code: elig.code };
-  const { ok, errors, value } = validateClaimForm(data);
+  const { ok, errors, value } = validateClaimForm(data, { requireStudentId: user.affiliation !== "external" });
   if (!ok) return { ok: false, errors };
 
   const now = new Date().toISOString();

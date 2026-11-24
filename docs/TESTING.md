@@ -20,7 +20,7 @@ npm test
 
 測試前：`npm start`，開啟 <http://localhost:3000>，按頁尾「重置示範資料」。
 
-示範帳號：`student_a / demo1234`（拾獲者）、`student_b / demo1234`（認領者）、`admin / admin1234`（管理員）。
+示範帳號：`student_a / demo1234`（拾獲者）、`student_b / demo1234`（認領者）、`visitor / demo1234`（校外人士）、`admin / admin1234`（管理員）。
 
 | # | 步驟 | 預期結果 | 對應 |
 |---|---|---|---|
@@ -53,5 +53,8 @@ npm test
 | T27 | student_a 開自己刊登物品 | 顯示「不能認領自己刊登的物品」 | 安全 1 |
 | T28 | 視窗寬度 360px、768px、1280px | 版面正常、手機出現漢堡選單、沒有水平捲軸 | NFR-03 |
 | T29 | 開發者工具查看 localStorage | `lf_items` 不含驗證特徵，驗證特徵在 `lf_secrets`（原型限制：任何人都看得到 localStorage，見 README） | 安全 12、13 |
+| T30 | 登入 `visitor`（校外人士），刊登物品 | 可以刊登；導覽列顯示「校外人士」標籤；校區只能選高科大 5 個校區 | FR-06 |
+| T31 | `visitor` 對物品提出認領，學號留空 | 可以送出並進入「待審核」；高科大學生（student_b）學號留空仍被擋下 | FR-07 |
+| T32 | `visitor` 開啟 `admin.html` | 顯示「權限不足」 | 安全 3 |
 
 安全規則編號對應 README「安全與隱私規則」一節。

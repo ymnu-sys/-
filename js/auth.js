@@ -7,6 +7,17 @@ import { clean } from "./utils.js";
 
 export const ROLE_LABEL = Object.freeze({ student: "學生", admin: "管理員" });
 
+/** 顯示用身分：管理員、校外人士或高科大學生（校外人士同樣使用 student 角色，權限相同） */
+export function userTypeLabel(user) {
+  if (!user) return "";
+  if (user.role === "admin") return ROLE_LABEL.admin;
+  return user.affiliation === "external" ? "校外人士" : ROLE_LABEL.student;
+}
+
+export function isExternal(user) {
+  return !!user && user.affiliation === "external";
+}
+
 function withoutPassword(u) {
   if (!u) return null;
   const { password, ...rest } = u;

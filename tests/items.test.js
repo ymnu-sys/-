@@ -122,3 +122,11 @@ test("五個校區都有物品，且依校區篩選只回傳該校區", () => {
   assert.equal(total, listPublicItems().length);
   assert.equal(searchPublicItems({ campus: "旗津校區", category: "3c" }).length, 1);
 });
+
+test("校外人士可以刊登拾獲物品，但仍必須選擇高科大校區", async () => {
+  const { visitor } = await import("./helpers.js");
+  assert.equal(createItem(validItem(), visitor).ok, true);
+  const bad = validateItemForm(validItem({ campus: "其他大學" }));
+  assert.ok(bad.errors.campus);
+  assert.throws(() => getItemSecret("i1", visitor));
+});
